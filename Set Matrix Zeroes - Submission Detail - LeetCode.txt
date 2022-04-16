@@ -1,0 +1,33 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        
+        
+        
+        int rowCount = matrix.size();
+        int columnCount = matrix[0].size();
+        set<int> zeroRow;
+        set<int> zeroColumn;
+        for(int i = 0; i < rowCount; i++){
+            for(int j = 0; j < columnCount; j++){
+                if(matrix[i][j] == 0){
+                    zeroRow.insert(i);
+                    zeroColumn.insert(j);
+                }
+                    
+            }
+        }
+        for(int i = 0; i < rowCount; i++){
+            if(zeroRow.find(i) != zeroRow.end()){
+                for(int j = 0; j < columnCount; j++)
+                    matrix[i][j] = 0;
+            }
+        }
+        for(int j = 0; j < columnCount; j++){
+            if(zeroColumn.find(j) != zeroColumn.end()){
+                for(int i = 0; i < rowCount; i++)
+                    matrix[i][j] = 0;
+            }
+        }
+    }
+};
