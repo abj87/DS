@@ -1,0 +1,26 @@
+class Solution{
+    public:
+    //Function to store the zig zag order traversal of tree in a list.
+    void solve(Node* root, map<int, vector<int>>& level, int vLevel){
+        if(root == NULL)
+            return;
+        
+        solve(root->left, level, vLevel + 1);
+        level[vLevel].push_back(root->data);
+        solve(root->right, level, vLevel + 1);
+    }
+    vector <int> zigZagTraversal(Node* root)
+    {
+    	// Code here
+    	map<int, vector<int>> level;
+    	vector<int> ans;
+    	solve(root, level, 0);
+    	for(auto node: level){
+    	    if(node.first % 2)
+    	        reverse(node.second.begin(), node.second.end());
+    	        
+    	    ans.insert(ans.end(), node.second.begin(), node.second.end());
+    	}
+    	return ans;
+    }
+};
