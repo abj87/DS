@@ -1,0 +1,26 @@
+class Solution {
+  public:
+    void solve(Node* root, map<int, pair<int, int>>& levelTraverse, int hLevel, int vLevel){
+        if(root == NULL)
+            return;
+        
+        if(levelTraverse.find(hLevel) == levelTraverse.end())
+            levelTraverse[hLevel] = make_pair(root->data, vLevel);
+        else if(vLevel >= levelTraverse[hLevel].second)
+            levelTraverse[hLevel] = make_pair(root->data, vLevel);
+        
+        solve(root->left, levelTraverse, hLevel - 1, vLevel + 1);
+        solve(root->right, levelTraverse, hLevel + 1, vLevel + 1);
+        
+    }
+    vector <int> bottomView(Node *root) {
+        // Your Code Here
+        vector<int> ans;
+        map<int, pair<int, int>> levelTraverse;
+        solve(root, levelTraverse, 0, 0);
+        for(auto node: levelTraverse){
+            ans.push_back(node.second.first);
+        }
+        return ans;
+    }
+};
