@@ -1,0 +1,21 @@
+vector<int> reverseLevelOrder(Node *root)
+{
+    // code here
+    
+    queue<pair<Node*, int>> traverse;
+    
+    vector<int> ans;
+    map<int, vector<int>> levels;
+    traverse.push(make_pair(root, 0));
+    while(!traverse.empty()){
+        if(traverse.front().first->left != NULL) traverse.push(make_pair(traverse.front().first->left, traverse.front().second + 1));
+        if(traverse.front().first->right != NULL) traverse.push(make_pair(traverse.front().first->right, traverse.front().second + 1));
+        levels[traverse.front().second].push_back(traverse.front().first->data);
+        traverse.pop();
+        
+    }
+    for(int i = levels.size() - 1; i >= 0; i--){
+        ans.insert(ans.end(), levels[i].begin(), levels[i].end());
+    }
+    return ans;
+}
