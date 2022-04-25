@@ -1,0 +1,29 @@
+class Solution{
+  public:
+    void solve(Node* root, int* level, int currentLevel, bool* ans){
+        if(root == NULL)
+            return;
+        
+        if(root->left == NULL and root->right == NULL){
+            if(*level == -1)
+                *level = currentLevel;
+            else if(*level != currentLevel)
+                *ans = *ans and false;
+            else *ans = *ans and true;
+        }
+        solve(root->left, level, currentLevel + 1, ans);
+        
+        
+        solve(root->right, level, currentLevel + 1, ans);
+    }
+    /*You are required to complete this method*/
+    bool check(Node *root)
+    {
+        //Your code here
+        int level = -1;
+        bool ans = true;
+        solve(root, &level, 0, &ans);
+        
+        return ans; 
+    }
+};
