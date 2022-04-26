@@ -1,0 +1,44 @@
+//Function to find the lowest common ancestor in a BST. 
+
+/*
+    LCA = Stores node pointer
+    ans = &LCA; 
+    
+    ans means address of LCA
+    *ans means value of LCA(LCA value is nothing but the address of Node)
+    **ans means value pointed by 
+*/
+void solve(Node* root, int n1, int n2, Node** ans){ 
+    if(root == NULL)
+        return;
+        
+    if((root->data) < n1 and (root->data) < n2)
+        solve(root->right, n1, n2, ans);
+    else if((root->data) > n1 and (root->data) > n2)
+        solve(root->left, n1, n2, ans);
+    else *ans = root;
+}
+Node* LCA(Node *root, int n1, int n2)
+{
+   //Your code here
+   /*
+        Approach->
+            if both n1 and n2 are less than current node value 
+                then both n1 and n2 are left childs
+            else if both n1 and n2 are greater than current node value
+                then both n1 and n2 are right childs
+            else{
+                if both above cases are NOT followed then it means
+                    i) Either n1 is left child of current node and n2 is right child of current node or vice versa
+                    ii) The n1 is equal to current_node->data and n2 is right or left child or vice versa(n2 is equal to current_node->data and n1 is right or left child)
+                        
+                    in both the cases the LCA is the current_node
+            }
+                 
+   */
+   Node *LCA;
+   solve(root, n1, n2, &LCA);//ans variable is passed by reference
+   return LCA;
+}
+
+
