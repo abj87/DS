@@ -1,0 +1,32 @@
+class Solution{
+public:
+	int rowWithMax1s(vector<vector<int> > arr, int n, int m) {
+	    // code here
+	    /*
+	        Approach->
+	            i) Start from top right element in matrix
+	            ii) traverse left in row till we find 0
+	            iii) if(we find zero)
+	                    then store the column number and that row number
+	            iv) Traverse to next row in same column(straight direction)
+	            v) 
+	                if(arr[row][column] == 0) continue;
+	                else{
+	                    go to step (ii)
+	                }
+	            vi) Go to step (v)
+	    */
+	    int ansColumn = m;
+	    int ansRow = 0;
+	    for(int row = 0; row < n; row++){
+	        while(ansColumn >= 1 and arr[row][ansColumn - 1] == 1){
+	            ansColumn--;
+	            ansRow = row;
+	        }
+	    }
+	    if(ansColumn == m)
+	        return -1;
+	    return ansRow;
+	}
+
+};
