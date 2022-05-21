@@ -1,0 +1,66 @@
+In both the approach differ in space complexity
+	Approach 1: Space Complexity = O(n * sum of all elements)
+	
+	Approach 2: Space COmplexity = O(n * k)
+
+
+			Approach 1: Vary or keep the count of Addition of Elements in subset (dp array size = [n][sum of all elements])
+	
+
+bool solve(int n, int sumTillNow, int k, vector<vector<int>> &dp, vector<int> &arr){
+	
+	if(sumTillNow == k)
+		return dp[n][sumTillNow] = true;
+	if(n == 0)
+		return dp[n][sumTillNow] = false;
+	
+	if(dp[n][sumTillNow] != -1)
+		return dp[n][sumTillNow];
+	bool include = solve(n - 1, sumTillNow + arr[n - 1], k, dp, arr);
+	bool nInclude = solve(n - 1, sumTillNow, k, dp, arr);
+	
+	return dp[n][sumTillNow] = (include or nInclude);
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    
+	// Write your code here.
+	int sum = 0;
+	for(int i = 0; i < n; i++)
+		sum += arr[i];
+	
+	
+	
+	vector<vector<int>> dp(n + 1, vector<int>(sum + 1, - 1));
+	bool ans = solve(n, 0, k, dp, arr);
+	return ans;
+}
+
+			
+			Approach 2: Vary or keep the count of Subtraction from Target/K
+
+
+
+bool solve(int n, int k, vector<vector<int>> &dp, vector<int> &arr){
+	if(k < 0) 
+		return false;
+	if(k == 0)
+		return dp[n][k] = true;
+	if(n == 0)
+		return dp[n][k] = false;
+	
+	if(dp[n][k] != -1)
+		return dp[n][k];
+	bool include = solve(n - 1, k - arr[n - 1], dp, arr);
+	bool nInclude = solve(n - 1, k, dp, arr);
+	
+	return dp[n][k] = (include or nInclude);
+}
+bool subsetSumToK(int n, int k, vector<int> &arr) {
+    
+	// Write your code here.
+		
+	
+	vector<vector<int>> dp(n + 1, vector<int>(k + 1, - 1));
+	bool ans = solve(n, k, dp, arr);
+	return ans;
+}

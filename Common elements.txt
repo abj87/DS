@@ -1,0 +1,44 @@
+class Solution
+{
+    public:    
+       vector <int> commonElements (int A[], int B[], int C[], int n1, int n2, int n3)
+        {
+            //code here.
+            /*
+                Approach
+                    Traverse through all arrays same time 
+                        cursor = 0 to min(size of 3 arrays)
+                    while(a < aN and b < bN and c < cN)
+                    if(A[i] == B[i] == C[i]){
+                        if(value is not duplicate)
+                            then ans.push_back(A[i]);
+                        increment a, b, c
+                    }
+                        
+                    else{
+                        traverse all arrays till maxNumber
+                    }
+            */ 
+            vector<int> ans;
+            int a = 0, b = 0, c = 0;
+            int aN = n1, bN = n2, cN = n3;
+            
+            while(a < aN and b < bN and c < cN){
+                if(A[a] == B[b] and B[b] == C[c]){
+                    int ansSize = ans.size();
+                    if(ansSize == 0 or ans[ansSize - 1] != A[a])//Dont incluse the dupliate value
+                        ans.push_back(A[a]);
+                    a++; b++; c++;
+                }
+                else{
+                    int maxNumber = max(A[a], max(B[b], C[c]));
+                    while(A[a] < maxNumber) a++;
+                    while(B[b] < maxNumber) b++;
+                    while(C[c] < maxNumber) c++;
+                }
+                    
+            }
+            return ans;
+        }
+
+};
